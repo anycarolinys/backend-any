@@ -1,0 +1,1 @@
+web: gunicorn projetoinca.wsgi --log-file -
