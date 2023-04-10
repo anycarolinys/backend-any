@@ -1,15 +1,7 @@
 from .models import FormAFM
 from .serializers import FormAFMSerializer
-from rest_framework import  viewsets,generics
+from rest_framework import  viewsets
 
-# class FormAFMViewSet(viewsets.ModelViewSet):
-#     queryset = FormAFM.objects.all()
-#     serializer_class = FormAFMSerializer
-
-class FormAFMListCreateView(generics.ListCreateAPIView):
-    queryset = FormAFM.objects.all()
-    serializer_class = FormAFMSerializer
-
-class FormAFMRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class FormAFMViewSet(viewsets.ModelViewSet):
     queryset = FormAFM.objects.all()
     serializer_class = FormAFMSerializer

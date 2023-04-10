@@ -1,11 +1,10 @@
 from django.db import models
-from formularios.formAFM.models import FormAFM
 
-# Create your models here.
+CIRCUNSTANCIA = [('Tosse','Tosse'), ('Espirro','Espirro'), ('Andar','Andar'), ('Riso','Riso'), ('Pular','Pular'),
+                ('Pegar peso','Pegar peso'), ('Relação sexual','Relação sexual')]
+
 class Circunstancia(models.Model):
-    # id = models.AutoField(primary_key=True)
-    circunstancia = models.CharField(max_length=20)
-    formAFM  = models.ForeignKey(FormAFM, on_delete=models.DO_NOTHING, related_name='AFM06')
+    circunstancia = models.CharField(max_length=20, choices=CIRCUNSTANCIA)
 
     def __str__(self):
         return str(self.circunstancia)

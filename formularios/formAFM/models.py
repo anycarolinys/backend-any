@@ -1,25 +1,9 @@
 from django.db import models
-# from circunstancia.models import Circunstancia
 from consulta.models import Consulta
+from circunstancia.models import Circunstancia
 
-# class CircunstanciaChoice(Enum):
-#     T  = 'Tosse'
-#     E = 'Espirro'
-#     A = 'Andar '
-#     R = 'Riso'
-#     P = 'Pular'
-#     PP = 'Pegar peso'
-#     RS = 'Relação sexual'
-
-# class CustomReadableValueEnumModel(models.Model):
-#     enumerated_field = EnumChoiceField(
-#         Circunstancia,
-#         choice_builder=attribute_value
-#     )
 
 SIM_NAO = [('Sim', 'Sim'), ('Não', 'Não')]
-# CIRCUNSTANCIA = [('Tosse', 'Tosse'), ('Espirro', 'Espirro'),
-                # ('Andar', 'Andar'), ('Riso', 'Riso'), ('Pular', 'Pular'), ('Pegar peso', 'Pegar peso'), ('Relação sexual', 'Relação sexual')]
 INTENSIDADE_PERDA = [('Muita', 'Muita'), ('Moderada', 'Moderada'), ('Pouca', 'Pouca')]
 QUANTIDADE_PERDA = [('Gota', 'Gota'), ('Colher', 'Colher'), ('Jato', 'Jato')]
 TIPO_INCONTINENCIA = [('Urgência', 'Urgência'), ('Esforço', 'Esforço'), 
@@ -39,19 +23,13 @@ ESCALA_NEW_PERFECT = [('P', 'Power'),
                     ('R', 'Repetition'),
                     ('F', 'Fast')]
 
-
 class FormAFM(models.Model):
-    # AFM06 = EnumChoiceField(Circunstancia, choice_builder=attribute_value)
-    # AFM06 = models.CharField(max_length=20, choices=[(c, c.value) for c in CircunstanciaChoice], verbose_name='Circunstância da perda:', null=True)
-    # AFM06 = EnumField(choices=CircunstanciaChoice, to_choice=lambda x: (x.value, x.name), to_repr=lambda x: x.value)
-    # AFM06 = models.ManyToManyField(Circunstancia)
-    # AFM06 = models.CharField(max_length=20, verbose_name='Circunstância da perda:', null=True)
-
     AFM01 = models.CharField(max_length=3, choices=SIM_NAO, verbose_name='Bebe 2 litros de água?')
     AFM02  = models.CharField(max_length=3, choices=SIM_NAO, verbose_name='Sente vontade de urinar?')
     AFM03 = models.CharField(max_length=3, choices=SIM_NAO, verbose_name='Tem sensação de esvaziamento incompleto?')
     AFM04 = models.CharField(max_length=3, choices=SIM_NAO, verbose_name='Há gotejamento após esvaziament')
     AFM05 = models.CharField(max_length=3, choices=SIM_NAO, verbose_name='Você perde xixi?')
+    AFM06 = models.ManyToManyField(Circunstancia, related_name='+',null=True)
     AFM07 = models.DateField(verbose_name='Data do último episódio:', null=True)
     AFM08 = models.IntegerField(verbose_name='Perda diária:', null=True)
     AFM09 = models.CharField(max_length=20, choices=INTENSIDADE_PERDA, verbose_name='Intensidade de perda:', null=True)
@@ -88,7 +66,7 @@ class FormAFM(models.Model):
     AFM40 = models.CharField(max_length=3, choices=SIM_NAO, verbose_name='Desconforto na relação sexual?', null=True)
     AFM41 = models.CharField(max_length=20, choices=FORCA_MUSCULATURA, verbose_name='Força da musculatura do assoalho pélvico')
     AFM42 = models.CharField(max_length=20, choices=ESCALA_NEW_PERFECT, verbose_name='Escala New Perfect')
-    consulta = models.ForeignKey(Consulta, on_delete=models.CASCADE)
+    consulta = models.OneToOneField(Consulta, on_delete=models.CASCADE, related_name='consulta', null=False)
 
     def __str__(self):
         return str(self.consulta)

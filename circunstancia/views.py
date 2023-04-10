@@ -1,15 +1,7 @@
 from .models import Circunstancia
 from .serializers import CircunstanciaSerializer
-from rest_framework import viewsets, generics
+from rest_framework import viewsets
 
-# class CircunstanciaViewSet(viewsets.ModelViewSet):
-#     queryset = Circunstancia.objects.all()
-#     serializer_class = CircunstanciaSerializer
-
-class CircunstanciaListCreateView(generics.ListCreateAPIView):
-    queryset = Circunstancia.objects.all()
-    serializer_class = CircunstanciaSerializer
-
-class CircunstanciaRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class CircunstanciaViewSet(viewsets.ModelViewSet):
     queryset = Circunstancia.objects.all()
     serializer_class = CircunstanciaSerializer
